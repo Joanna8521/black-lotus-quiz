@@ -1,4 +1,4 @@
-// src/data/results.js
+src/data/results.js
 
 const results = {
   A: {
