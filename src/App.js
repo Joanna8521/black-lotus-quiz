@@ -1,8 +1,16 @@
-// src/App.js
-
 import React, { useState } from "react";
 import questions from "./data/questions";
 import results from "./data/results";
+
+const shareBtnStyle = {
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "6px",
+  backgroundColor: "#000",
+  color: "#FFF176",
+  fontSize: "16px",
+  cursor: "pointer",
+};
 
 const App = () => {
   const [started, setStarted] = useState(false);
@@ -37,11 +45,10 @@ const App = () => {
       }
     }
 
-    // 特殊判斷條件
     if (Object.keys(count).length === 1 && count[finalType] === 7 && finalType === "A") {
-      finalType = "S"; // 黑蓮花宗師型（全 A）
+      finalType = "S"; // 宗師型
     } else if (Object.keys(count).length === 1 && count[finalType] === 7 && finalType === "F") {
-      finalType = "F"; // 小白花（全 F）
+      finalType = "F"; // 小白花
     }
 
     setResultType(finalType);
@@ -56,7 +63,7 @@ const App = () => {
   };
 
   return (
-    <div className="app-container" style={{ textAlign: "center", padding: "2rem" }}>
+    <div className="app-container" style={{ textAlign: "center", padding: "2rem", backgroundColor: "#000", color: "#FFF176", minHeight: "100vh" }}>
       {!started ? (
         <div>
           <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
@@ -64,15 +71,15 @@ const App = () => {
           </h1>
           <p style={{ fontSize: "1.2rem", marginBottom: "2rem" }}>
             測出你的語氣殺傷力，看看你屬於哪一型蓮花。<br />
-            說不定……你就是隱士高人黑蓮花宗師呢！
+            說不定...你就是隱士高人黑蓮花宗師呢！
           </p>
           <button
             onClick={() => setStarted(true)}
             style={{
               padding: "1rem 2rem",
               fontSize: "1.2rem",
-              backgroundColor: "#000",
-              color: "#FFF176",
+              backgroundColor: "#FFF176",
+              color: "#000",
               border: "none",
               borderRadius: "8px",
               cursor: "pointer"
@@ -99,8 +106,8 @@ const App = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: "100px",
-                  backgroundColor: "#fff",
-                  border: "1px solid #ccc",
+                  backgroundColor: "#1a1a1a",
+                  border: "1px solid #444",
                   borderRadius: "12px",
                   marginBottom: "20px",
                   padding: "0 24px",
@@ -108,6 +115,7 @@ const App = () => {
                   textAlign: "center",
                   cursor: "pointer",
                   transition: "0.2s ease",
+                  color: "#FFF176",
                 }}
               >
                 {option.text}
@@ -128,12 +136,54 @@ const App = () => {
               「{results[resultType].punchline}」
             </p>
           </div>
+
+          {/* 分享功能 */}
+          <div style={{ marginTop: "3rem" }}>
+            <p style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>
+              分享你的蓮花型態，讓朋友來測測看！
+            </p>
+            <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <button
+                onClick={() =>
+                  window.open(
+                    `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`,
+                    "_blank"
+                  )
+                }
+                style={shareBtnStyle}
+              >
+                LINE 分享
+              </button>
+              <button
+                onClick={() =>
+                  window.open(
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
+                    "_blank"
+                  )
+                }
+                style={shareBtnStyle}
+              >
+                Facebook 分享
+              </button>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert("已複製連結！");
+                }}
+                style={shareBtnStyle}
+              >
+                複製連結
+              </button>
+            </div>
+          </div>
+
+          {/* 再測一次 */}
           <button
             onClick={handleRestart}
             style={{
               marginTop: "3rem",
-              backgroundColor: "#000",
-              color: "#fff",
+              backgroundColor: "#FFF176",
+              color: "#000",
               padding: "12px 24px",
               border: "none",
               borderRadius: "8px",
