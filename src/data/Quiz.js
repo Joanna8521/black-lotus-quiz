@@ -1,4 +1,4 @@
-// src/data/Quiz.js
+// src/components/Quiz.js
 
 import React, { useState } from "react";
 import questions from "../data/questions";
