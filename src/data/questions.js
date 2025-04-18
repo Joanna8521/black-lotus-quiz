@@ -1,4 +1,4 @@
-// src/data/questions.js
+// src/components/questions.js
 
 const questions = [
   {
